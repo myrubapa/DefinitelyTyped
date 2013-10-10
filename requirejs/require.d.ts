@@ -304,6 +304,15 @@ interface RequireDefine {
 	*	callback return module definition
 	**/
 	(name: string, deps: string[], ready: (...deps: any[]) => any): void;
+
+	/**
+	* Define a module with a name and dependencies.
+	* @param name The name of the module.
+	* @param ready Callback function when the dependencies are loaded.
+	*	callback deps module dependencies
+	*	callback return module definition
+	**/
+	(name: string, ready: (...deps: any[]) => any): void;
 }
 
 // Ambient declarations for 'require' and 'define'
