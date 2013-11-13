@@ -157,8 +157,8 @@ declare module Backbone {
         comparator(element: Model): any;
         comparator(compare: Model, to?: Model): any;
 
-        add(model: Model, options?: AddOptions);
-        add(models: Model[], options?: AddOptions);
+        add(model: Model, options?: AddOptions): any;
+        add(models: Model[], options?: AddOptions): any;
         at(index: number): Model;
         get(id: any): Model;
         create(attributes: any, options?: ModelSaveOptions): Model;
@@ -319,7 +319,7 @@ declare module Backbone {
         remove(): View;
         make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: any): any;
-        undelegateEvents();
+        undelegateEvents(): any;
 
         _ensureElement(): void;
     }
