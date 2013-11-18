@@ -1,10 +1,11 @@
 # AngularJS Definitions Usage Notes
 
-* angular-resource-1.0.d.ts (for the **ngResource** module)
-* angular-cookies-1.0.d.ts (for the **ngCookies** module)
-* angular-sanitize-1.0.d.ts (for the **ngSanitize** module)
-* angular-mocks-1.0.d.ts (for the **ngMock** and **ngMockE2E** modules)
-
+* angular-resource.d.ts (for the **ngResource** module)
+* angular-route.d.ts (for the **ngRoute** module)
+* angular-cookies.d.ts (for the **ngCookies** module)
+* angular-sanitize.d.ts (for the **ngSanitize** module)
+* angular-mocks.d.ts (for the **ngMock** and **ngMockE2E** modules)
+(postfix with version number for specific verion, eg. angular-resource-1.0.d.ts)
 
 ## The Angular Static
 
@@ -99,6 +100,7 @@ Since you are augmenting the $scope object, you should let the compiler know wha
         // Overload get to accept our custom parameters
         get(): ng.resource.IResource;
         get(params: IArticleParameters, onSuccess: Function): IArticleResource;
+
         // Add our custom resource actions
         publish(): IArticleResource;
         publish(params: IArticleParameters): IArticleResource;
@@ -110,6 +112,7 @@ Since you are augmenting the $scope object, you should let the compiler know wha
         text: string;
         date: Date;
         author: number;
+
         // Although all actions defined on IArticleResourceClass are avaiable with
         // the '$' prefix, we have the choice to expose only what we will use
         $publish(): IArticleResource;
@@ -205,4 +208,3 @@ Since you are augmenting the $scope object, you should let the compiler know wha
         article.$publish();
         
     }
->>>>>>> Stashed changes
