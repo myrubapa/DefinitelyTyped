@@ -1,5 +1,20 @@
 # AngularJS Definitions Usage Notes
 
+## Referencing AngularJS definition files in your code
+
+To do that, simply add `/// <reference path="angular.d.ts" />` at the top of your code.
+
+That will make available to your code all interfaces AngularJS' main module **ng** implements, as well as the **AUTO** module.
+
+If you are including other AngularJS' modules in your code, like **ngResource**, just like you needed to include the additional module implementation file in your code, _angular-resource.js_, you will also need to reference the definitions file related to that module. Your code would then have the following definitions files reference:
+
+    /// <reference path="angular.d.ts" />
+    /// <reference path="angular-resource.d.ts" />
+
+Having these modules in separated files is actually good because they sometimes either augment or modify some of **ng**'s interfaces, and thus those differences should only be available to you when you really need them. Also, it forces you to explicit what you're going to be using.
+
+The following extra definition files are available for referencing:
+
 * angular-resource.d.ts (for the **ngResource** module)
 * angular-route.d.ts (for the **ngRoute** module)
 * angular-cookies.d.ts (for the **ngCookies** module)
