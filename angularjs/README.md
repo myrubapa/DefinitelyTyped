@@ -5,6 +5,7 @@
 * angular-cookies.d.ts (for the **ngCookies** module)
 * angular-sanitize.d.ts (for the **ngSanitize** module)
 * angular-mocks.d.ts (for the **ngMock** and **ngMockE2E** modules)
+
 (postfix with version number for specific verion, eg. angular-resource-1.0.d.ts)
 
 ## The Angular Static
