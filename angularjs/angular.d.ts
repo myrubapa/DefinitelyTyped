@@ -792,6 +792,7 @@ declare module ng {
             get (name: string): any;
             instantiate(typeConstructor: Function, locals?: any): any;
             invoke(func: Function, context?: any, locals?: any): any;
+            invoke(inlineAnnotatedFunction: any[], context?: any, locals?: any): any;
         }
 
         ///////////////////////////////////////////////////////////////////////
