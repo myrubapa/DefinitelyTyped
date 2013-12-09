@@ -19,10 +19,18 @@ declare module ng.resource {
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
 
+        <T extends IResource<T>, U extends IResourceClass<T>>(url: string, paramDefaults?: any,
+                                                              /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+                                                               where deleteDescriptor : IActionDescriptor */
+                                                              actionDescriptors?: any): U;
         <T extends IResource<T>>(url: string, paramDefaults?: any,
                                  /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
                                   where deleteDescriptor : IActionDescriptor */
                                  actionDescriptors?: any): IResourceClass<T>;
+        (url: string, paramDefaults?: any,
+                                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
+                                  where deleteDescriptor : IActionDescriptor */
+                                 actionDescriptors?: any): IResourceClass<IResource<any>>;
     }
 
     // Just a reference to facilitate describing new actions
@@ -101,6 +109,7 @@ declare module ng.resource {
     /** when creating a resource factory via IModule.factory */
     interface IResourceServiceFactoryFunction<T extends IResource<T>> {
         ($resource: ng.resource.IResourceService): IResourceClass<T>;
+        <U extends IResourceClass<T>>($resource: ng.resource.IResourceService): U;
     }
 }
 
