@@ -1179,6 +1179,18 @@ interface UnderscoreStatic {
 		object: any,
 		...keys: string[]): any;
 
+    /**
+     * Return a copy of the object, filtered to only have values for which the iteratee returns true.
+     * @param object Object to strip unwanted key/value pairs.
+     * @param iteratee Function which needs to return true for each value to be included in the result.
+     * @param context Object to use as the context for the iteratee, optional.
+     * @return Copy of `object` with only the wanted properties.
+     **/
+	pick(
+		object: any,
+		iteratee: (value: any, key: string, obj: any): boolean,
+        context?: object): any;
+
 	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
 	* @param object Object to strip unwanted key/value pairs.
