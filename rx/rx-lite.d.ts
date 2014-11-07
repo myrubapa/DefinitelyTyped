@@ -43,28 +43,32 @@ declare module Rx {
 		}
 	}
 
-	export module config {
-		export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
-        export var useNativeEvents: boolean;
+	export class Config {
+		Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
+        useNativeEvents: boolean;
 	}
 
-	export module helpers {
-		function noop(): void;
-		function notDefined(value: any): boolean;
-		function isScheduler(value: any): boolean;
-		function identity<T>(value: T): T;
-		function defaultNow(): number;
-		function defaultComparer(left: any, right: any): boolean;
-		function defaultSubComparer(left: any, right: any): number;
-		function defaultKeySerializer(key: any): string;
-		function defaultError(err: any): void;
-		function isPromise(p: any): boolean;
-		function asArray<T>(...args: T[]): T[];
-		function not(value: any): boolean;
-        function just<T>(value: T): () => T;
-        function pluck<T>(property): (source: any) => T;
+    export var config: Config;
+
+	export class Helpers {
+		noop(): void;
+		notDefined(value: any): boolean;
+		isScheduler(value: any): boolean;
+		identity<T>(value: T): T;
+		defaultNow(): number;
+		defaultComparer(left: any, right: any): boolean;
+		defaultSubComparer(left: any, right: any): number;
+		defaultKeySerializer(key: any): string;
+		defaultError(err: any): void;
+		isPromise(p: any): boolean;
+		asArray<T>(...args: T[]): T[];
+		not(value: any): boolean;
+        just<T>(value: T): () => T;
+        pluck<T>(property): (source: any) => T;
         //TODO: add just, pluck
 	}
+
+    export var helpers: Helpers;
 
 	export interface IDisposable {
 		dispose(): void;
@@ -153,6 +157,12 @@ declare module Rx {
 	}
 
 	// Notifications
+    export class NotificationStatic {
+        createOnNext<T>(value: T): Notification<T>;
+        createOnError<T>(exception: any): Notification<T>;
+        createOnCompleted<T>(): Notification<T>;
+    }
+
 	export class Notification<T> {
 		accept(observer: IObserver<T>): void;
 		accept<TResult>(onNext: (value: T) => TResult, onError?: (exception: any) => TResult, onCompleted?: () => TResult): TResult;
@@ -162,11 +172,8 @@ declare module Rx {
 		kind: string;
 		value: T;
 		exception: any;
-
-		static createOnNext<T>(value: T): Notification<T>;
-		static createOnError<T>(exception: any): Notification<T>;
-		static createOnCompleted<T>(): Notification<T>;
 	}
+
 
 	/**
 	 * Promise A+
@@ -277,6 +284,14 @@ declare module Rx {
 		doAction(observer: Observer<T>): Observable<T>;	// alias for do
 		do(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observable<T>;
 		doAction(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): Observable<T>;	// alias for do
+
+        doOnNext(onNext?: (value: T) => void): Observable<T>;
+        doOnError(onError?: (exception: any) => void): Observable<T>;
+        doOnCompleted(onCompleted?: () => void): Observable<T>;
+        tapOnNext(onNext?: (value: T) => void): Observable<T>;
+        tapOnError(onError?: (exception: any) => void): Observable<T>;
+        tapOnCompleted(onCompleted?: () => void): Observable<T>;
+
 		finally(action: () => void): Observable<T>;
 		finallyAction(action: () => void): Observable<T>;	// alias for finally
 		ignoreElements(): Observable<T>;

@@ -27,7 +27,7 @@ declare module Rx {
 		value: any;
 	}
 
-	export var ReactiveTest: {
+	export class ReactiveTestStatic {
 		created: number;
 		subscribed: number;
 		disposed: number;
@@ -39,7 +39,9 @@ declare module Rx {
 		onCompleted(ticks: number): Recorded;
 
 		subscribe(subscribeAt: number, unsubscribeAt?: number): Subscription;
-	};
+	}
+
+    export var ReactiveTest: ReactiveTestStatic;
 
 	export class Subscription {
 		constructor(subscribeAt: number, unsubscribeAt?: number);

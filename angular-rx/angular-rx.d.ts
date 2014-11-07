@@ -1,30 +1,35 @@
+/// <reference path="../rx/rx.d.ts" />
+/// <reference path="../rx/rx.binding-lite.d.ts" />
+/// <reference path="../rx/rx.virtualtime.d.ts" />
+/// <reference path="../rx/rx.testing.d.ts" />
+
 declare module ng {
 
     interface IRootScopeService {
-        $createObservableFunction(functionName: string, listener: (...args: any[]) => any): Rx.IDisposable;
-        $toObservable(watchExpression: string, objectEquality?: boolean): Rx.IObservable;
-        $toObservable(watchExpression: (scope: IScope) => any, objectEquality?: boolean): Rx.IObservable;
-        $eventToObservable(eventName: string): Rx.IObservable;
+        $createObservableFunction<T>(functionName: string, listener: (...args: any[]) => any): Rx.IObservable<T>;
+        $toObservable<T>(watchExpression: string, objectEquality?: boolean): Rx.IObservable<T>;
+        $toObservable<T>(watchExpression: (scope: IScope) => any, objectEquality?: boolean): Rx.IObservable<T>;
+        $eventToObservable<T>(eventName: string): Rx.IObservable<T>;
         //TODO: add $digestObservables
     }
 
     module rx {
 
         interface IObserveOnScopeService {
-            (scope: IScope, watchExpression: string, objectEquality?: boolean): Rx.IObservable;
-            (scope: IScope, watchExpression: (scope: IScope) => any, objectEquality?: boolean): Rx.IObservable;
+            <T>(scope: IScope, watchExpression: string, objectEquality?: boolean): Rx.IObservable<T>;
+            <T>(scope: IScope, watchExpression: (scope: IScope) => any, objectEquality?: boolean): Rx.IObservable<T>;
         }
 
         class RxService {
             // Helpers
-            config: Rx.config;
-            helpers: Rx.helpers;
+            config: Rx.Config;
+            helpers: Rx.Helpers;
 
             // Core
             //TODO: add spawn
             Observable: Rx.ObservableStatic;
             Observer: Rx.ObserverStatic;
-            Notification: Rx.Notification;
+            Notification: Rx.NotificationStatic;
 
             // Subjects
             AsyncSubject: Rx.AsyncSubjectStatic;
@@ -35,7 +40,7 @@ declare module ng {
             // Schedulers
             HistoricalScheduler: Rx.HistoricalScheduler;
             Scheduler: Rx.Scheduler;
-            VirtualTimeScheduler: Rx.VirtualTimeScheduler;
+            VirtualTimeScheduler: new <T, U>(initialClock: T, comparer: (first: T, second: T) => number) => Rx.VirtualTimeScheduler<T, U>;
 
             // Disposables
             CompositeDisposable: Rx.CompositeDisposable;
@@ -45,7 +50,7 @@ declare module ng {
             SingleAssignmentDisposable: Rx.SingleAssignmentDisposable;
 
             // Testing
-            ReactiveTest: Rx.ReactiveTest;
+            ReactiveTest: Rx.ReactiveTestStatic;
             Recorded: Rx.Recorded;
             Subscription: Rx.Subscription;
             TestScheduler: Rx.TestScheduler;
@@ -56,10 +61,4 @@ declare module ng {
 
     }
 
-}
-
-declare module Rx {
-    class Observable<T> {
-        safeApply($scope: ng.IScope, fn: (data: any) => void): Observable<T>;
-    }
 }

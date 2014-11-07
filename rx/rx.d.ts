@@ -64,6 +64,10 @@ declare module Rx {
 		observeOn(scheduler: IScheduler): Observable<T>;
 		subscribeOn(scheduler: IScheduler): Observable<T>;
 
+        subscribeOnNext(onNext: (value: T) => void, thisArg?: any): IDisposable;
+        subscribeOnError(onError: (value: T) => void, thisArg?: any): IDisposable;
+        subscribeOnCompleted(onCompleted: (value?: T) => void, thisArg?: any): IDisposable;
+
 		amb(rightSource: Observable<T>): Observable<T>;
 		amb(rightSource: IPromise<T>): Observable<T>;
 		onErrorResumeNext(second: Observable<T>): Observable<T>;
