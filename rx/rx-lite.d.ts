@@ -45,6 +45,7 @@ declare module Rx {
 
 	export module config {
 		export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
+        export var useNativeEvents: boolean;
 	}
 
 	export module helpers {
@@ -60,6 +61,9 @@ declare module Rx {
 		function isPromise(p: any): boolean;
 		function asArray<T>(...args: T[]): T[];
 		function not(value: any): boolean;
+        function just<T>(value: T): () => T;
+        function pluck<T>(property): (source: any) => T;
+        //TODO: add just, pluck
 	}
 
 	export interface IDisposable {
